@@ -15,7 +15,6 @@ type SinglePartProps = {
     index: number;
 };
 
-
 const SinglePart: React.FC<SinglePartProps> = ({ part, index })=> {
 
     useEffect(()=>{

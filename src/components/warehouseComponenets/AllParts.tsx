@@ -1,4 +1,6 @@
 import SinglePart from "./SinglePart.tsx";
+import {useEffect, useState} from "react";
+import {httpRequest} from "../../plugins/httpRequest.ts";
 
 type Parts = {
     name: string;
@@ -11,6 +13,21 @@ type Parts = {
 };
 
 const AllParts = () => {
+    const [allPart, setAllPart] = useState()
+
+
+    useEffect(() => {
+        httpRequest.getRequest("allParts")
+            .then(data => {
+                setAllPart(data.data);
+            })
+            .catch(error => {
+                console.error("Error fetching all parts:", error.message);
+            });
+    }, []);
+
+    console.log(allPart)
+
     const allParts: Parts[] = [{
         name: "dalis",
         ordered: 3,
