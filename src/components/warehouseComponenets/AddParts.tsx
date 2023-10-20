@@ -1,5 +1,5 @@
 import {InputGroup, Form, Button} from "react-bootstrap";
-import {useRef} from "react";
+import {useRef, useState} from "react";
 import {httpRequest} from "../../plugins/httpRequest.ts";
 
 const AddParts = () => {
@@ -8,13 +8,14 @@ const AddParts = () => {
     const codeRef = useRef<HTMLInputElement>(null)
     const quantityRef = useRef<HTMLInputElement>(null)
     const placeRef = useRef<HTMLInputElement>(null)
+    const [place, setPlace] = useState('w1');
 
     function addParts () {
         const partForRef = {
             name: nameRef.current?.value,
             code: codeRef.current?.value,
             quantity: quantityRef.current?.value,
-            place: placeRef.current?.value  // Fixed the typo here
+            place: placeRef.current?.value
         }
         httpRequest.postRequest("addPart", partForRef).then(data => {
             if(data.data.err) {
@@ -49,22 +50,30 @@ const AddParts = () => {
                     aria-describedby="inputGroup-sizing-default"
                 />
             </InputGroup>
+
+            <InputGroup className="mb-3">
+                <InputGroup.Text id="inputGroup-sizing-default">
+                    Place
+                </InputGroup.Text>
+                <Form.Select
+                    value={place}
+                    onChange={(e) => setPlace(e.target.value)}
+                    aria-label="Default"
+                    aria-describedby="inputGroup-sizing-default"
+                >
+                    <option value="w1">w1</option>
+                    <option value="w2">w2</option>
+                    <option value="w3">w3</option>
+                </Form.Select>
+            </InputGroup>
+
             <InputGroup className="mb-3">
                 <InputGroup.Text id="inputGroup-sizing-default">
                     Quantity
                 </InputGroup.Text>
                 <Form.Control
+                    type="number"
                     ref={quantityRef}
-                    aria-label="Default"
-                    aria-describedby="inputGroup-sizing-default"
-                />
-            </InputGroup>
-            <InputGroup className="mb-3">
-                <InputGroup.Text id="inputGroup-sizing-default">
-                    Place
-                </InputGroup.Text>
-                <Form.Control
-                    ref={placeRef}
                     aria-label="Default"
                     aria-describedby="inputGroup-sizing-default"
                 />
