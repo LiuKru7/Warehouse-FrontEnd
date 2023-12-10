@@ -3,8 +3,7 @@ import {useEffect, useState} from "react";
 import {httpRequest} from "../../plugins/httpRequest.ts";
 import {Form, InputGroup} from "react-bootstrap";
 
-
-const AllParts = () => {
+const ExpiredParts = () => {
     type Part = {
         name: string,
         code: string,
@@ -17,9 +16,10 @@ const AllParts = () => {
 
 
     useEffect(() => {
-        httpRequest.getRequest("parts")
+        httpRequest.getRequest("parts/expired")
             .then(data => {
                 setAllPart(data.data.parts);
+
                 setAllParts2(data.data.parts)
             })
             .catch(error => {
@@ -74,13 +74,15 @@ const AllParts = () => {
     return (
         <div className="m-3 bg-secondary w-100 ">
             <div className="grid d-flex justify-content-center border-bottom border-1 border-black align-items-center">
-                <div className="col-2 fw-bold d-flex px-2 hoverLink" onClick={sortPartName}>Part name</div>
-                <div className="col-2 fw-bold d-flex hoverLink" onClick={sortCode} >Part code</div>
-                <div className="col-1 fw-bold hoverLink" onClick={sortPlace} >Place</div>
-                <div className="col-1 fw-bold hoverLink" onClick={sortByQuantity} >Quantify</div>
-                <div className="col-1 fw-bold hoverLink ">Price</div>
+                <div className="col-2 fw-bold d-flex px-2" onClick={sortPartName}>Part name</div>
+                <div className="col-2 fw-bold d-flex " onClick={sortCode} >Part code</div>
+                <div className="col-1 fw-bold " onClick={sortPlace} >Place</div>
+                <div className="col-1 fw-bold " onClick={sortByQuantity} >Quantify</div>
+                <div className="col-1 fw-bold ">Price</div>
                 <div className="col-1 fw-bold "></div>
                 <div className="col-4 d-flex align-items-center">
+
+
                     <InputGroup>
                         <InputGroup.Text id="inputGroup-sizing-default">
                             Search
@@ -101,4 +103,4 @@ const AllParts = () => {
     );
 };
 
-export default AllParts;
+export default ExpiredParts;

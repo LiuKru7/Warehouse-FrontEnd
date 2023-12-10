@@ -1,0 +1,20 @@
+
+.cursor-pointer {
+    cursor:pointer;
+}
+.hoverLink:hover {
+    text-decoration: underline;
+    transition: 0.1s;
+    font-size: 1.1em;
+   cursor: pointer;
+}
+.takePosition {
+    right: 0;
+}
+.newColorRed {
+    color: red;
+}
+
+
+
+

@@ -7,7 +7,6 @@ const AddParts = () => {
     const nameRef = useRef<HTMLInputElement>(null)
     const codeRef = useRef<HTMLInputElement>(null)
     const quantityRef = useRef<HTMLInputElement>(null)
-    const placeRef = useRef<HTMLInputElement>(null)
     const [place, setPlace] = useState('w1');
 
     function addParts () {
@@ -15,13 +14,17 @@ const AddParts = () => {
             name: nameRef.current?.value,
             code: codeRef.current?.value,
             quantity: quantityRef.current?.value,
-            place: placeRef.current?.value
+            place: place
         }
-        httpRequest.postRequest("addPart", partForRef).then(data => {
+        console.log(partForRef)
+        httpRequest.postRequest("parts/add", partForRef).then(data => {
             if(data.data.err) {
                 return console.log(data.data.message);
             } else {
                 console.log("Part added successfully!");
+                nameRef.current!.value = ""
+                codeRef.current!.value = ""
+                quantityRef.current!.value = ""
             }
         }).catch(error => {
             console.log("Error:", error.message);
